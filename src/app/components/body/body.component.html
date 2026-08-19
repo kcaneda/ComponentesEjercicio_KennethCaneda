@@ -1,1 +1,48 @@
-<p>body works!</p>
+<body>
+    <table *ngIf="visible">
+        <thead>
+            <tr>
+                <th>ID: </th>
+                <th>Nombre: </th>
+                <th>Categoria: </th>
+                <th>Precio: </th>
+                <th>Stock: </th>
+                <th>Activo: </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of productos">
+                <td>{{ producto.id }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.categoria }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.stock }}</td>
+                <td *ngIf="producto.stock > 0 ? 'Disponible' : 'No Disponible'"><br>
+                    <span *ngIf="producto.stock > 3">Stock suficiente</span>
+                    <span *ngIf="producto.stock > 0 && producto.stock <= 3">¡Pocas unidades!</span>
+                    <span *ngIf="producto.stock === 0">Agotado</span>
+                </td>
+                <td>{{ producto.activo ? 'Activo' : 'Inacivo' }}</td>
+                <td>
+                    <button (click)="aumentarStock(producto)">+</button>
+                    <button (click)="disminuirStock(producto)">-</button>
+                </td>
+                <td>
+                    <button (click)="seleccionarProducto(producto)">Seleccionar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button (click)="cambiarEstadoTabla()">
+        {{visible ? 'Ocultar Tabla': 'Mostrar Tabla'}}
+    </button>
+    <div *ngIf="productoSeleccionado">
+        <h2>Producto Seleccionado:</h2>
+        <p>ID: {{ productoSeleccionado.id }}</p>
+        <p>Nombre: {{ productoSeleccionado.nombre }}</p>
+        <p>Categoria: {{ productoSeleccionado.categoria }}</p>
+        <p>Precio: {{ productoSeleccionado.precio }}</p>
+        <p>Stock: {{ productoSeleccionado.stock }}</p>
+        <p>Activo: {{ productoSeleccionado.activo ? 'Activo' : 'Inactivo' }}</p>
+    </div>
+</body>
