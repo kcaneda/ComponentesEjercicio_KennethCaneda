@@ -1,4 +1,12 @@
 <body>
+    <div>
+        <input type="text" [(ngModel)]="busqueda" (ngModelChange)="buscar()">
+        <p>Busqueda: {{busqueda}}</p>
+    </div>
+    <div *ngIf="sinResultados">
+        <p>No se encontraron resultados de esta busqueda.</p>
+    </div>
+
     <table *ngIf="visible">
         <thead>
             <tr>
@@ -7,11 +15,15 @@
                 <th>Categoria: </th>
                 <th>Precio: </th>
                 <th>Stock: </th>
+                <th>Disponible: </th>
                 <th>Activo: </th>
+                <th>Modificar Stock</th>
+                <th>Detalles</th>
+
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let producto of productos">
+            <tr *ngFor="let producto of resultado">
                 <td>{{ producto.id }}</td>
                 <td>{{ producto.nombre }}</td>
                 <td>{{ producto.categoria }}</td>
@@ -22,27 +34,38 @@
                     <span *ngIf="producto.stock > 0 && producto.stock <= 3">¡Pocas unidades!</span>
                     <span *ngIf="producto.stock === 0">Agotado</span>
                 </td>
-                <td>{{ producto.activo ? 'Activo' : 'Inacivo' }}</td>
+                <td>{{ producto.activo ? 'Activo' : 'Deshabilitado' }}</td>
                 <td>
-                    <button (click)="aumentarStock(producto)">+</button>
-                    <button (click)="disminuirStock(producto)">-</button>
+                    <button (click)="aumentarStock(producto)" [disabled]="producto.activo === false" class="btn-cuadrado">+</button>
+                    <button (click)="disminuirStock(producto)" [disabled]="producto.stock === 0" class="btn-cuadrado">-</button>
                 </td>
                 <td>
-                    <button (click)="seleccionarProducto(producto)">Seleccionar</button>
+                    <button (click)="seleccionarProducto(producto)" class="mi-boton">Ver Detalles</button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <button (click)="cambiarEstadoTabla()">
+    <button (click)="cambiarEstadoTabla()" class="mi-boton">
         {{visible ? 'Ocultar Tabla': 'Mostrar Tabla'}}
     </button>
-    <div *ngIf="productoSeleccionado">
-        <h2>Producto Seleccionado:</h2>
-        <p>ID: {{ productoSeleccionado.id }}</p>
-        <p>Nombre: {{ productoSeleccionado.nombre }}</p>
-        <p>Categoria: {{ productoSeleccionado.categoria }}</p>
-        <p>Precio: {{ productoSeleccionado.precio }}</p>
-        <p>Stock: {{ productoSeleccionado.stock }}</p>
-        <p>Activo: {{ productoSeleccionado.activo ? 'Activo' : 'Inactivo' }}</p>
+    <div>
+        <br>
+        <div *ngIf="productoSeleccionado" class="card">
+        <hr>
+        <div class="card-content">
+            <h2>Producto Seleccionado:</h2>
+            <p>ID: {{ productoSeleccionado.id }}</p>
+            <p>Nombre: {{ productoSeleccionado.nombre }}</p>
+            <p>Categoria: {{ productoSeleccionado.categoria }}</p>
+            <p>Precio: {{ productoSeleccionado.precio }}</p>
+            <p>Stock: {{ productoSeleccionado.stock }}</p>
+            <p>Activo: {{ productoSeleccionado.activo ? 'Activo' : 'Deshabilitado' }}</p>
+        </div>
     </div>
+    </div>
+    <hr>
+    <div>Cantitad de productos: {{cantidadProductos}}</div>
+    <div>Productos disponibles: {{productosDisponibles}}</div>
+    <div>Productos agotados: {{productosAgotados}}</div>
+
 </body>

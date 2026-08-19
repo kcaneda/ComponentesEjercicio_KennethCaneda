@@ -19,28 +19,40 @@ export class BodyComponent {
   ]
   cantidadProductos = this.productos.length;
 
-  /*ID Producto Categoría Precio Stock Activo
-1 Laptop Lenovo Computadoras Q6,500 5 Sí
-2 Mouse Logitech Accesorios Q175 0 Sí
-3 Teclado Mecánico Accesorios Q450 8 Sí
-4 Monitor Samsung 24" Monitores Q1,850 2 Sí
-5 Webcam Logitech Accesorios Q550 0 No*/
   visible = true;
   cambiarEstadoTabla() {
     this.visible = !this.visible;
 
   }
-
   aumentarStock(producto: any) {
     producto.stock++;
+    this.productosDisponibles = this.productos.filter(p => p.stock > 0).length;
+    this.productosAgotados = this.productos.filter(p => p.stock === 0).length;
   }
   disminuirStock(producto: any) {
     if (producto.stock > 0) {
       producto.stock--;
+      this.productosDisponibles = this.productos.filter(p => p.stock > 0).length;
+      this.productosAgotados = this.productos.filter(p => p.stock === 0).length;
     }
   }
   productoSeleccionado: any = null;
   seleccionarProducto(producto: any) {
     this.productoSeleccionado = producto;
+  }
+  productosDisponibles = this.productos.filter(p => p.stock > 0).length;
+  productosAgotados = this.productos.filter(p => p.stock === 0).length;
+
+
+  busqueda = "";
+  resultado = this.productos;
+  sinResultados = false;
+  buscar() {
+    this.resultado = this.productos.filter(p => p.nombre.toLowerCase().includes(this.busqueda.toLowerCase()));
+    this.sinResultados=false;
+    if (this.resultado.length === 0) {
+      this.sinResultados = true;
+    }
+
   }
 }

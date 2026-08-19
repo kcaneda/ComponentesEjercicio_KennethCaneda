@@ -12,5 +12,5 @@ import {FormsModule} from '@angular/forms'
 export class HeaderComponent {
   titulo = "Tienda Virtual";
   nombreEmpresa = "TechNova";
-  busqueda = "";
+  
 }
