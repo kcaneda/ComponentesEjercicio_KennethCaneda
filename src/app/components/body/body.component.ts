@@ -12,10 +12,10 @@ import { FormsModule } from '@angular/forms';
 export class BodyComponent {
   productos = [
     { id: 1, nombre: "Laptop Lenovo", categoria: "Computadoras", precio: 6500, stock: 5, activo: true },
-    { id: 1, nombre: "Mouse Logitech", categoria: "Accesorios", precio: 175, stock: 0, activo: true },
-    { id: 1, nombre: "Teclado mecánico", categoria: "Accesorios", precio: 450, stock: 8, activo: true },
-    { id: 1, nombre: "Monitor Samsung 24''", categoria: "Monitores", precio: 1850, stock: 2, activo: true },
-    { id: 1, nombre: "Webcam Logitech", categoria: "Accesorios", precio: 550, stock: 0, activo: false }
+    { id: 2, nombre: "Mouse Logitech", categoria: "Accesorios", precio: 175, stock: 0, activo: true },
+    { id: 3, nombre: "Teclado mecánico", categoria: "Accesorios", precio: 450, stock: 8, activo: true },
+    { id: 4, nombre: "Monitor Samsung 24''", categoria: "Monitores", precio: 1850, stock: 2, activo: true },
+    { id: 5, nombre: "Webcam Logitech", categoria: "Accesorios", precio: 550, stock: 0, activo: false }
   ]
   cantidadProductos = this.productos.length;
 
